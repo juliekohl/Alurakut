@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
 const MainGrid = styled.main`
-  display: grid;
-  grid: grid-template-columns;
-  grid-gap: 10px;
   width: 100%;
   max-width: 500px;
   padding: 15px;
@@ -13,16 +10,17 @@ const MainGrid = styled.main`
   .profileArea {
     display: none;
 
-    @media(min-width: 860px) {
+    @media(min-width: 768px) {
       display: block;
     }
   }
 
-  @media(min-width: 860px) {
+  @media(min-width: 768px) {
+    display: grid;
     grid-template-areas: "profileArea welcomeArea profileRelationsArea profileComunidadesArea";
     grid-template-columns: 1fr 3fr 2fr;
-    max-width: 1110px;
-    
+    grid-gap: 10px;
+    max-width: 1920px;
   }
 `;
 

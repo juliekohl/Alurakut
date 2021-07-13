@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
     display: block;
   }
 
-  // ${AluraKutStyles}
+  ${AluraKutStyles}
 `
 
 const theme = {
