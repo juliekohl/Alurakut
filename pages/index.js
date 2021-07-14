@@ -5,6 +5,31 @@ import ProfileSidebar from '../src/components/ProfileSidebar/ProfileSidebar';
 import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations/ProfileRelations';
 
+function ProfileRelationsBox(props) {
+  return (
+    <ProfileRelationsBoxWrapper>
+      <h2 className="subTitle">
+        {props.title} ({props.items.length})
+      </h2>
+
+      {/* <ul>
+        {followers.map((itemAtual) => {
+          return (
+            <li key={itemAtual.id}> 
+              <a href={`https://github.com/${itemAtual}.png`}>
+                <img src={itemAtual.image} />
+                <span>{itemAtual.title}</span>
+              </a>
+            </li>
+          )
+        })}
+      </ul> */}
+
+      <h3 className="smallTitle">{props.more}</h3>
+    </ProfileRelationsBoxWrapper>
+  )
+}
+
 export default function Home() {
   const githubUser = 'juliekohl';
   const [communities, setcommunities] = React.useState([{
@@ -24,6 +49,22 @@ export default function Home() {
     'juliolmuller',
     'williammago'
   ]
+
+  const [followers, setFollowers] = React.useState([]);
+
+  React.useEffect(function() {
+    fetch('https://api.github.com/users/juliekohl/followers')
+    .then(function(respostaDoServidor) {
+      return respostaDoServidor.json();
+    })
+    .then(function(respostaCompleta) {
+      setFollowers(respostaCompleta);
+    })
+  }, [])
+
+    console.log('Seguidores antes do return', followers);
+
+  // criar um box que vai ter um map, baseado nos itens do array que pegamos do Github
 
   return (
     <>
@@ -87,6 +128,12 @@ export default function Home() {
         </div>
 
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
+          <ProfileRelationsBox
+            title="Seguidores"
+            items={followers} 
+            more="Ver todos"
+          />
+
           <ProfileRelationsBoxWrapper>
             <h2 className="subTitle">
               Pessoas da comunidade dev ({pessoasFavoritas.length})
