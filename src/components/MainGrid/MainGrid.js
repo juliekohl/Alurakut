@@ -20,7 +20,7 @@ const MainGrid = styled.main`
     grid-template-areas: "profileArea welcomeArea profileRelationsArea profileComunidadesArea";
     grid-template-columns: 1fr 3fr 2fr;
     grid-gap: 10px;
-    max-width: 1920px;
+    max-width: 1110px;
   }
 `;
 

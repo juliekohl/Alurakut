@@ -1,39 +1,18 @@
 import React from 'react';
 import MainGrid from '../src/components/MainGrid/MainGrid';
 import Box from '../src/components/Box/Box';
-import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
+import ProfileSidebar from '../src/components/ProfileSidebar/ProfileSidebar';
+import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations/ProfileRelations';
-
-function ProfileSidebar(props) {
-  return (
-    <Box as="aside">
-      <div className="alurakutMenuProfileSidebar">
-        <img src={`https://github.com/${props.githubUser}.png`} style={{ borderRadius: '8px' }} />
-        <hr />
-
-        <p>
-          <a className="boxLink" href={`https://github.com/${props.githubUser}`}>
-            @{props.githubUser}
-          </a>
-        </p>
-        <hr />
-
-        <AlurakutProfileSidebarMenuDefault />
-      </div>
-    </Box>
-  )
-}
 
 export default function Home() {
   const githubUser = 'juliekohl';
-  const [communitys, setCommunitys] = React.useState([{
+  const [communities, setcommunities] = React.useState([{
     id: '12802378123789378912789789123896123', 
     title: 'Eu odeio acordar cedo',
     image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
   }]);
 
-  // console.log('Test', communitys);
-  // const communitys = ['Alurakut'];
   const pessoasFavoritas = [
     'juunegreiros',
     'omariosouto',
@@ -52,7 +31,7 @@ export default function Home() {
       <MainGrid>
         <div className="profileArea" style={{ gridArea: 'profileArea' }}>
           <Box>
-          <ProfileSidebar githubUser={githubUser} />
+            <ProfileSidebar githubUser={githubUser} />
           </Box>
         </div>
         
@@ -80,8 +59,8 @@ export default function Home() {
                 image: dadosDoForm.get('image'),
               }
 
-              const communitysUpdated = [...communitys, community];
-              setCommunitys(communitysUpdated)
+              const communitiesUpdated = [...communities, community];
+              setcommunities(communitiesUpdated)
             }}>
               <div>
                 <input 
@@ -114,28 +93,28 @@ export default function Home() {
             </h2>
 
             <ul>
-            {pessoasFavoritas.map((itemAtual) => {
-              return (
-                <li key={itemAtual}>
-                  <a href={`/users/${itemAtual}`}>
-                    <img src={`https://github.com/${itemAtual}.png`} />
-                    <span>{itemAtual}</span>
-                  </a>
-                </li>
-              )
-            })}
+              {pessoasFavoritas.map((itemAtual) => {
+                return (
+                  <li key={itemAtual}>
+                    <a href={`/users/${itemAtual}`}>
+                      <img src={`https://github.com/${itemAtual}.png`} />
+                      <span>{itemAtual}</span>
+                    </a>
+                  </li>
+                )
+              })}
             </ul>
 
             <h3 className="smallTitle">Ver todos</h3>
           </ProfileRelationsBoxWrapper>
 
           <ProfileRelationsBoxWrapper>
-          <h2 className="subTitle">
-            Comunidades ({communitys.length})
-          </h2>
+            <h2 className="subTitle">
+              Comunidades ({communities.length})
+            </h2>
 
             <ul>
-              {communitys.map((itemAtual) => {
+              {communities.map((itemAtual) => {
                 return (
                   <li key={itemAtual.id}>
                     <a href={`/users/${itemAtual.title}`}>
