@@ -13,12 +13,12 @@ function ProfileRelationsBox(props) {
       </h2>
 
       {/* <ul>
-        {followers.map((itemAtual) => {
+        {followers.map((follower) => {
           return (
-            <li key={itemAtual.id}> 
-              <a href={`https://github.com/${itemAtual}.png`}>
-                <img src={itemAtual.image} />
-                <span>{itemAtual.title}</span>
+            <li key={follower.id}> 
+              <a href={follower.image}>
+                <img src={`https://github.com/${follower.login}.png`} />
+                <span>github.com/<strong>{follower.login}</strong></span>
               </a>
             </li>
           )
@@ -32,11 +32,7 @@ function ProfileRelationsBox(props) {
 
 export default function Home() {
   const githubUser = 'juliekohl';
-  const [communities, setcommunities] = React.useState([{
-    id: '12802378123789378912789789123896123', 
-    title: 'Eu odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
-  }]);
+  const [communities, setCommunities] = React.useState([]);
 
   const pessoasFavoritas = [
     'juunegreiros',
@@ -53,16 +49,38 @@ export default function Home() {
   const [followers, setFollowers] = React.useState([]);
 
   React.useEffect(function() {
+    // GET
     fetch('https://api.github.com/users/juliekohl/followers')
-    .then(function(respostaDoServidor) {
-      return respostaDoServidor.json();
+    .then(function(response) {
+      return response.json();
     })
-    .then(function(respostaCompleta) {
-      setFollowers(respostaCompleta);
+    .then(function(followerGithub) {
+      setFollowers(followerGithub);
+    })
+
+    // API GraphQL
+    fetch('https://graphql.datocms.com', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'fbeeee0417370c1a491fe75bb8fee2',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({ "query": `query {
+        allCommunities {
+          id
+          title
+          imageUrl
+          creatorSlug
+        }
+      }` })
+    })
+    .then((response) => response.json())
+    .then((respostaCompleta) => {
+      const communitiesVindasDoDato = respostaCompleta.data.allCommunities;
+      setCommunities(communitiesVindasDoDato)
     })
   }, [])
-
-    console.log('Seguidores antes do return', followers);
 
   // criar um box que vai ter um map, baseado nos itens do array que pegamos do Github
 
@@ -95,13 +113,25 @@ export default function Home() {
               console.log('Campo:', dadosDoForm.get('image'));
 
               const community = {
-                id: new Date().toISOString(),
                 title: dadosDoForm.get('title'),
-                image: dadosDoForm.get('image'),
+                imageUrl: dadosDoForm.get('image'),
+                creatorSlug: githubUser,
               }
 
-              const communitiesUpdated = [...communities, community];
-              setcommunities(communitiesUpdated)
+              fetch('/api/communities', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(community)
+              })
+              .then(async (response) => {
+                const dados = await response.json();
+                console.log(dados.registroCriado);
+                const community = dados.registroCriado;
+                const communitiesUpdated = [...communities, community];
+                setCommunities(communitiesUpdated)
+              })
             }}>
               <div>
                 <input 
@@ -164,8 +194,8 @@ export default function Home() {
               {communities.map((itemAtual) => {
                 return (
                   <li key={itemAtual.id}>
-                    <a href={`/users/${itemAtual.title}`}>
-                      <img src={itemAtual.image} />
+                    <a href={`/communities/${itemAtual.id}`}>
+                      <img src={itemAtual.imageUrl} />
                       <span>{itemAtual.title}</span>
                     </a>
                   </li>
