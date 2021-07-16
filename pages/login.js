@@ -1,6 +1,12 @@
 import React from 'react';
+import { useRouter } from 'next/router';
+// import { async } from 'regenerator-runtime';
+import nookies from 'nookies';
 
 export default function LoginScreen() {
+  const router = useRouter();
+  const [githubUser, setGithubUser] = React.useState('');
+
   return (
     <main style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <div className="loginScreen">
@@ -13,11 +19,40 @@ export default function LoginScreen() {
         </section>
 
         <section className="formArea">
-          <form className="box">
+          <form className="box" onSubmit={(e) => {
+            e.preventDefault();
+            console.log('Usuário: ', githubUser);
+            fetch('https://alurakut.vercel.app/api/login', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ githubUser: githubUser })
+            })
+            .then(async (respostaDoServer) => {
+              const dadosDaResposta = await respostaDoServer.json()
+              const token = dadosDaResposta.token;
+              nookies.set(null, 'USER_TOKEN', token, {
+                path: '/',
+                maxAge: 86400 * 7
+              })
+              router.push('/')
+            })
+          }}>
             <p>
               Acesse agora mesmo com seu usuário do <strong>GitHub</strong>!
             </p>
-            <input placeholder="Usuário" />
+            <input 
+              placeholder="Usuário"
+              value={githubUser} 
+              onChange={(e) => {
+                setGithubUser(e.target.value)
+              }}
+            />
+            {githubUser.length === 0 
+              ? 'Preencha o campo'
+              : ''
+            }
             <button type="submit">
               Login
             </button>

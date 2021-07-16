@@ -1,5 +1,5 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { AluraKutStyles } from '../src/lib/AlurakutCommons';
+import { AlurakutStyles } from '../src/lib/AlurakutCommons';
 
 const GlobalStyle = createGlobalStyle`
 /* Reset CSS (Necolas Reset CSS )*/
@@ -26,12 +26,12 @@ const GlobalStyle = createGlobalStyle`
     display: block;
   }
 
-  ${AluraKutStyles}
+  ${AlurakutStyles}
 `
 
 const theme = {
   colors: {
-    primary: 'red',
+    primary: '#0070f3',
   },
 }
 
