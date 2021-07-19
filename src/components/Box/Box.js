@@ -3,12 +3,12 @@ import styled from 'styled-components';
 const Box = styled.div`
   margin-bottom: 10px;
   padding: 14px;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 8px;
   
   .boxLink {
     font-size: 14px;
-    font-weighht:800;
+    font-weight: 800;
     text-decoration: none;
     color: #2e7bb4;
   }
@@ -16,20 +16,20 @@ const Box = styled.div`
   .title {
     margin: 20px;
     font-size: 32px;
-    font-weighht: 500;
+    font-weight: 500;
   }
 
   .subTitle {
     margin: 20px;
     font-size: 18px;
-    font-weighht: 400;
+    font-weight: 400;
   }
 
   .smallTitle {
     margin 20px;
     font-size: 16px;
-    font-weighht: 700;
-    color: #333333;
+    font-weight: 700;
+    color: #333;
   }
 
   hr {
@@ -43,22 +43,22 @@ const Box = styled.div`
     width: 100%;
     margin-bottom: 15px;
     padding: 15px;
-    color: #333333;
+    color: #333;
     background-color: #f4f4f4;
     border: 0;
-    border-radius: 10000px;
+    border-radius: 100px;
     ::placeholder {
-      color: #333333;
+      color: #333;
       opacity: 1;
     }
   }
 
   button {
     padding: 8px 12px;
-    color: #ffffff;
+    color: #fff;
     background-color: #6f92bb;
     border: 0;
-    border-radius: 10000px;
+    border-radius: 100px;
   }
 `;
 

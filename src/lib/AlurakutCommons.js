@@ -146,7 +146,7 @@ AlurakutMenu.Wrapper = styled.header`
       background-image: url(${`${BASE_URL}/icons/search.svg`});
       background-position: 15px center;
       background-repeat: no-repeat;
-      border-radius: 1000px;
+      border-radius: 100px;
       font-size: 12px;
       ::placeholder {
         color: #ffffff;
@@ -158,7 +158,7 @@ AlurakutMenu.Wrapper = styled.header`
 AlurakutMenu.Logo = styled.img`
   background-color: #ffffff;
   padding: 9px 14px;
-  border-radius: 1000px;
+  border-radius: 100px;
   height: 34px;
 `;
 

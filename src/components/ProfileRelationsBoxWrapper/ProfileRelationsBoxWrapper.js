@@ -32,7 +32,7 @@ export const ProfileRelationsBoxWrapper = styled(Box)`
       padding: 0 5px;
       font-size: 10px;
       text-overflow: ellipsis;
-      color: #FFFFFF;
+      color: #FFF;
       overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 3;
@@ -47,7 +47,7 @@ export const ProfileRelationsBoxWrapper = styled(Box)`
       left: 0;
       bottom: 0;
       z-indeX: 1;
-      background-image: linear-gradient(0deg,#00000073,transparent);
+      background-image: linear-gradient(0deg, #00000073, transparent);
     }
   }
 `;
