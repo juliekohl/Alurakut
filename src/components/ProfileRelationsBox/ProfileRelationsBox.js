@@ -20,9 +20,9 @@ export default function ProfileRelationsBox(props) {
         })}
       </ul>
 
-      <span className="smallTitle">
+      {/* <span className="smallTitle">
         Ver todos
-      </span>
+      </span> */}
     </ProfileRelationsBoxWrapper>
   )
 }
