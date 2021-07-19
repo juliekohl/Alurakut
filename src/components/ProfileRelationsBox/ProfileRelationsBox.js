@@ -20,7 +20,9 @@ export default function ProfileRelationsBox(props) {
         })}
       </ul>
 
-      <h3 className="smallTitle">{props.more}</h3>
+      <span className="smallTitle">
+        Ver todos
+      </span>
     </ProfileRelationsBoxWrapper>
   )
 }

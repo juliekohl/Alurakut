@@ -158,20 +158,17 @@ export default function Home(props) {
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
           <ProfileRelationsBox
             title="Seguidores"
-            items={followers} 
-            more="Ver todos"
+            items={followers}
           />
 
           <ProfileRelationsBox
             title="Pessoas"
             items={peopleFavoriteArray}
-            more="Ver todos"
           />
 
           <ProfileRelationsBox
             title="Comunidades"
             items={communities}
-            more="Ver todos"
           />
         </div>
       </MainGrid>
