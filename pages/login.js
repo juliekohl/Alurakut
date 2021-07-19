@@ -1,6 +1,5 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-// import { async } from 'regenerator-runtime';
 import nookies from 'nookies';
 
 export default function LoginScreen() {
@@ -21,7 +20,6 @@ export default function LoginScreen() {
         <section className="formArea">
           <form className="box" onSubmit={(e) => {
             e.preventDefault();
-            console.log('Usuário: ', githubUser);
             fetch('https://alurakut.vercel.app/api/login', {
               method: 'POST',
               headers: {
@@ -29,9 +27,9 @@ export default function LoginScreen() {
               },
               body: JSON.stringify({ githubUser: githubUser })
             })
-            .then(async (respostaDoServer) => {
-              const dadosDaResposta = await respostaDoServer.json()
-              const token = dadosDaResposta.token;
+            .then(async (response) => {
+              const data = await response.json()
+              const token = data.token;
               nookies.set(null, 'USER_TOKEN', token, {
                 path: '/',
                 maxAge: 86400 * 7
@@ -49,10 +47,6 @@ export default function LoginScreen() {
                 setGithubUser(e.target.value)
               }}
             />
-            {githubUser.length === 0 
-              ? 'Preencha o campo'
-              : ''
-            }
             <button type="submit">
               Login
             </button>

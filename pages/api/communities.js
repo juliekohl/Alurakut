@@ -2,22 +2,19 @@ import { SiteClient } from 'datocms-client';
 
 export default async function recebedorDeRequests( request, response) {
 
-  if(request.method === 'POST') {
+  if (request.method === 'POST') {
     const TOKEN = '9d391c9e84fa16603ffc1229e2bc4a';
     const client = new SiteClient(TOKEN);
   
-    const resgistroCriado = await client.items.create({
+    const register = await client.items.create({
       itemType: "967819",
-      ...request.body,
-      // title: "Comunidade de Teste",
-      // imageUrl: "https://github.com/juliekohl.png",
-      // creatorSlug: "juliekohl"
+      ...request.body
     })
   
     response.json({
-      dados: 'Algum dado qualquer',
-      resgistroCriado: resgistroCriado,
-    })
+      register: register,
+    });
+
     return;
   }
 

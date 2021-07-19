@@ -8,12 +8,12 @@ export default function ProfileRelationsBox(props) {
       </h2>
 
       <ul>
-        {props.items.map((itemAtual) => {
+        {props.items.map((item) => {
           return (
-            <li key={itemAtual.id}>
-              <a href={itemAtual.link}>
-                <img src={itemAtual.imageUrl} />
-                <span>{itemAtual.title}</span>
+            <li key={item.id}>
+              <a href={item.link}>
+                <img src={item.imageUrl} />
+                <span>{item.title}</span>
               </a>
             </li>
           )

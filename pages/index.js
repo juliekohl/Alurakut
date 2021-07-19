@@ -11,7 +11,7 @@ export default function Home(props) {
   const githubUser = props.githubUser;
   const [communities, setCommunities] = React.useState([]);
 
-  const pessoasFavoritas = [
+  const peopleFavorite = [
     'juunegreiros',
     'omariosouto',
     'peas',
@@ -23,17 +23,18 @@ export default function Home(props) {
     'williammago'
   ];
 
-  let pessoasFavoritasArray = [];
-  pessoasFavoritas.map(favorita => {
-    pessoasFavoritasArray.push({
-      id: favorita,
-      link: `https://github.com/${favorita}`,
-      imageUrl: `https://github.com/${favorita}.png`,
-      title: favorita
+  let peopleFavoriteArray = [];
+  peopleFavorite.map(favorite => {
+    peopleFavoriteArray.push({
+      id: favorite,
+      link: `https://github.com/${favorite}`,
+      imageUrl: `https://github.com/${favorite}.png`,
+      title: favorite
     });
   });
 
   const [followers, setFollowers] = React.useState([]);
+  // todo end
 
   React.useEffect(function() {
     // GET
@@ -41,9 +42,9 @@ export default function Home(props) {
     .then(function(response) {
       return response.json();
     })
-    .then(function(followerGithub) {
+    .then(function(followers) {
       let followersArray = [];
-      followerGithub.map(follower => {
+      followers.map(follower => {
         followersArray.push({
           id: follower.id,
           link: follower.html_url,
@@ -72,17 +73,15 @@ export default function Home(props) {
       }` })
     })
     .then((response) => response.json())
-    .then((respostaCompleta) => {
-      const communitiesVindasDoDato = respostaCompleta.data.allCommunities;
-      setCommunities(communitiesVindasDoDato)
+    .then((response) => {
+      setCommunities(response.data.allCommunities)
     })
   }, [])
-
-  // criar um box que vai ter um map, baseado nos itens do array que pegamos do Github
 
   return (
     <>
       <AlurakutMenu githubUser={githubUser} />
+
       <MainGrid>
         <div className="profileArea" style={{ gridArea: 'profileArea' }}>
           <Box>
@@ -103,14 +102,12 @@ export default function Home(props) {
             <h2 className="subTitle">O que você deseja fazer?</h2>
             <form onSubmit={function handleCreateCommunity(e) {
               e.preventDefault();
-              const dadosDoForm = new FormData(e.target);
 
-              console.log('Campo:', dadosDoForm.get('title'));
-              console.log('Campo:', dadosDoForm.get('image'));
+              const data = new FormData(e.target);
 
               const community = {
-                title: dadosDoForm.get('title'),
-                imageUrl: dadosDoForm.get('image'),
+                title: data.get('title'),
+                imageUrl: data.get('image'),
                 creatorSlug: githubUser,
               }
 
@@ -122,9 +119,8 @@ export default function Home(props) {
                 body: JSON.stringify(community)
               })
               .then(async (response) => {
-                const dados = await response.json();
-                console.log(dados.registroCriado);
-                const community = dados.registroCriado;
+                const data = await response.json();
+                const community = data.register;
                 const communitiesUpdated = [...communities, community];
                 setCommunities(communitiesUpdated)
               })
@@ -146,6 +142,15 @@ export default function Home(props) {
                 />
               </div>
 
+              <div>
+                <input 
+                  placeholder="Autor da comunidade" 
+                  name="creator" 
+                  aria-label="Autor da comunidade" 
+                  type="text"
+                />
+              </div>
+
               <button>
                 Criar comunidade
               </button>
@@ -162,7 +167,7 @@ export default function Home(props) {
 
           <ProfileRelationsBox
             title="Pessoas"
-            items={pessoasFavoritasArray}
+            items={peopleFavoriteArray}
             more="Ver todos"
           />
 
@@ -185,7 +190,7 @@ export async function getServerSideProps(context) {
       Authorization: token
     }
   })
-  .then((resposta) => resposta.json())
+  .then((response) => response.json())
 
   if (!isAuthenticated) {
     return {
@@ -201,6 +206,6 @@ export async function getServerSideProps(context) {
   return {
     props: {
       githubUser
-    },
+    }
   }
 }
