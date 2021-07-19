@@ -5,7 +5,6 @@ import MainGrid from '../src/components/MainGrid/MainGrid';
 import Box from '../src/components/Box/Box';
 import ProfileSidebar from '../src/components/ProfileSidebar/ProfileSidebar';
 import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
-import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelationsBoxWrapper/ProfileRelationsBoxWrapper';
 import ProfileRelationsBox from '../src/components/ProfileRelationsBox/ProfileRelationsBox';
 
 export default function Home(props) {
