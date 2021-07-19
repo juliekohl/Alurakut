@@ -223,14 +223,14 @@ export async function getServerSideProps(context) {
   })
   .then((resposta) => resposta.json())
 
-  // if(!isAuthenticated) {
-  //   return {
-  //     redirect: {
-  //       destination: '/login',
-  //       permanent: false,
-  //     }
-  //   }
-  // }
+  if (!isAuthenticated) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      }
+    }
+  }
 
   const { githubUser } = jwt.decode(token);
 
