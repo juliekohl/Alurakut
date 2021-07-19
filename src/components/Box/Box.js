@@ -32,13 +32,6 @@ const Box = styled.div`
     color: #333;
   }
 
-  hr {
-    margin-top: 15px;
-    margin-bottom: 10px;
-    border-color: transparent;
-    border-bottom-color: #ecf2fa; 
-  }
-
   input {
     width: 100%;
     margin-bottom: 15px;

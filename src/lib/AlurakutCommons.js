@@ -234,6 +234,13 @@ AlurakutProfileSidebarMenuDefault.Wrapper = styled.div`
       margin-right: 5px; 
     }
   }
+
+  hr {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border-color: transparent;
+    border-bottom-color: #ecf2fa; 
+  }
 `;
 
 // ================================================================================================================
