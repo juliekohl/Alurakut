@@ -5,32 +5,33 @@ import MainGrid from '../src/components/MainGrid/MainGrid';
 import Box from '../src/components/Box/Box';
 import ProfileSidebar from '../src/components/ProfileSidebar/ProfileSidebar';
 import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
-import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations/ProfileRelations';
+import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelationsBoxWrapper/ProfileRelationsBoxWrapper';
+import ProfileRelationsBox from '../src/components/ProfileRelationsBox/ProfileRelationsBox';
 
-function ProfileRelationsBox(props) {
-  return (
-    <ProfileRelationsBoxWrapper>
-      <h2 className="subTitle">
-        {props.title} ({props.items.length})
-      </h2>
+// function ProfileRelationsBox(props) {
+//   return (
+//     <ProfileRelationsBoxWrapper>
+//       <h2 className="subTitle">
+//         {props.title} ({props.items.length})
+//       </h2>
 
-      {/* <ul>
-        {followers.map((follower) => {
-          return (
-            <li key={follower.id}> 
-              <a href={follower.image}>
-                <img src={`https://github.com/${follower.login}.png`} />
-                <span>github.com/<strong>{follower.login}</strong></span>
-              </a>
-            </li>
-          )
-        })}
-      </ul> */}
+//       {/* <ul>
+//         {followers.map((follower) => {
+//           return (
+//             <li key={follower.id}> 
+//               <a href={follower.image}>
+//                 <img src={`https://github.com/${follower.login}.png`} />
+//                 <span>github.com/<strong>{follower.login}</strong></span>
+//               </a>
+//             </li>
+//           )
+//         })}
+//       </ul> */}
 
-      <h3 className="smallTitle">{props.more}</h3>
-    </ProfileRelationsBoxWrapper>
-  )
-}
+//       <h3 className="smallTitle">{props.more}</h3>
+//     </ProfileRelationsBoxWrapper>
+//   )
+// }
 
 export default function Home(props) {
   const githubUser = props.githubUser;
