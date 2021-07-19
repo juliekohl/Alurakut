@@ -6,11 +6,14 @@ import Box from '../src/components/Box/Box';
 import ProfileSidebar from '../src/components/ProfileSidebar/ProfileSidebar';
 import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
 import ProfileRelationsBox from '../src/components/ProfileRelationsBox/ProfileRelationsBox';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 export default function Home(props) {
   const githubUser = props.githubUser;
   const [communities, setCommunities] = React.useState([]);
   const [followers, setFollowers] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
 
   function setStateFollowers() {
     const peopleFavorite = [
@@ -79,7 +82,47 @@ export default function Home(props) {
       .then((response) => {
         setCommunities(response.data.allCommunities)
       })
-  }, [])
+  }, []);
+
+  const formik = useFormik({ 
+    initialValues: { 
+      title: '',
+      image: '',
+      creator: ''
+    }, 
+    validationSchema: Yup.object({  
+      title: Yup.string().required('Obrigatório'), 
+      image: Yup.string().url('URL inválida').required('Obrigatório'), 
+      creator: Yup.string().required('Obrigatório'), 
+    }), 
+    onSubmit: values => {
+      setLoading(true);
+
+      const community = {
+        title: values.title,
+        imageUrl: values.image,
+        creatorSlug: values.creator,
+      }
+
+      fetch('/api/communities', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(community)
+      })
+      .then(async (response) => {
+        const data = await response.json();
+        const community = data.register;
+        const communitiesUpdated = [...communities, community];
+        setCommunities(communitiesUpdated);
+
+        alert('Comunidade criada como sucesso!');
+
+        setLoading(false);
+      })
+    }, 
+  });
 
   return (
     <>
@@ -103,54 +146,54 @@ export default function Home(props) {
 
           <Box>
             <h2 className="subTitle">O que você deseja fazer?</h2>
-            <form onSubmit={function handleCreateCommunity(e) {
-              e.preventDefault();
-
-              const data = new FormData(e.target);
-
-              const community = {
-                title: data.get('title'),
-                imageUrl: data.get('image'),
-                creatorSlug: githubUser,
-              }
-
-              fetch('/api/communities', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(community)
-              })
-              .then(async (response) => {
-                const data = await response.json();
-                const community = data.register;
-                const communitiesUpdated = [...communities, community];
-                setCommunities(communitiesUpdated)
-              })
-            }}>
-              <input
+            <form onSubmit={formik.handleSubmit}>
+              <input 
                 placeholder="Qual vai ser o nome da sua comunidade?" 
                 name="title" 
                 aria-label="Qual vai ser o nome da sua comunidade?" 
                 type="text"
+                onChange={formik.handleChange} 
+                onBlur={formik.handleBlur} 
+                value={formik.values.title} 
               />
+              {formik.touched.title && formik.errors.title ? ( 
+                <div className="formError">{formik.errors.title}</div> 
+              ) : null} 
 
               <input 
                 placeholder="Coloque uma URL para usarmos de capa" 
                 name="image" 
                 aria-label="Coloque uma URL para usarmos de capa" 
+                onChange={formik.handleChange} 
+                onBlur={formik.handleBlur} 
+                value={formik.values.image} 
               />
+              {formik.touched.image && formik.errors.image ? ( 
+                <div className="formError">{formik.errors.image}</div> 
+              ) : null}
 
               <input 
                 placeholder="Autor da comunidade" 
                 name="creator" 
                 aria-label="Autor da comunidade" 
                 type="text"
+                onChange={formik.handleChange} 
+                onBlur={formik.handleBlur} 
+                value={formik.values.creator} 
               />
+              {formik.touched.creator && formik.errors.creator ? ( 
+                <div className="formError">{formik.errors.creator}</div> 
+              ) : null}
 
-              <button>
-                Criar comunidade
-              </button>
+              {!loading ? (
+                <button type="submit">
+                  Criar comunidade
+                </button>
+              ) : (
+                <button type="submit" disabled>
+                  Aguarde um momento
+                </button>
+              )}
             </form>
           </Box>
         </div>

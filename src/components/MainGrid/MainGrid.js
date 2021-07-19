@@ -14,6 +14,13 @@ const MainGrid = styled.main`
     }
   }
 
+  .formError {
+    margin-bottom: 15px;
+    margin-left: 15px;
+    font-size: 12px;
+    color: red;
+  }
+
   @media(min-width: 768px) {
     display: grid;
     grid-template-areas: "profileArea welcomeArea profileRelationsArea profileComunidadesArea";
