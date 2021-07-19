@@ -4,8 +4,7 @@ const MainGrid = styled.main`
   width: 100%;
   max-width: 500px;
   padding: 15px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 
   .profileArea {
     display: none;
