@@ -10,72 +10,75 @@ import ProfileRelationsBox from '../src/components/ProfileRelationsBox/ProfileRe
 export default function Home(props) {
   const githubUser = props.githubUser;
   const [communities, setCommunities] = React.useState([]);
-
-  const peopleFavorite = [
-    'juunegreiros',
-    'omariosouto',
-    'peas',
-    'rafaballerini',
-    'marcobrunodev',
-    'cesarkohl',
-    'felipefialho',
-    'juliolmuller',
-    'williammago'
-  ];
-
-  let peopleFavoriteArray = [];
-  peopleFavorite.map(favorite => {
-    peopleFavoriteArray.push({
-      id: favorite,
-      link: `https://github.com/${favorite}`,
-      imageUrl: `https://github.com/${favorite}.png`,
-      title: favorite
-    });
-  });
-
   const [followers, setFollowers] = React.useState([]);
-  // todo end
+
+  function setStateFollowers() {
+    const peopleFavorite = [
+      'juunegreiros',
+      'omariosouto',
+      'peas',
+      'rafaballerini',
+      'marcobrunodev',
+      'cesarkohl',
+      'felipefialho',
+      'juliolmuller',
+      'williammago'
+    ];
+  
+    let peopleFavoriteArray = [];
+    peopleFavorite.map(favorite => {
+      peopleFavoriteArray.push({
+        id: favorite,
+        link: `https://github.com/${favorite}`,
+        imageUrl: `https://github.com/${favorite}.png`,
+        title: favorite
+      });
+    });
+
+    return peopleFavoriteArray;
+  }
+  let peopleFavoriteArray = setStateFollowers();
 
   React.useEffect(function() {
-    // GET
+    // Set Followers
     fetch('https://api.github.com/users/juliekohl/followers')
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(followers) {
-      let followersArray = [];
-      followers.map(follower => {
-        followersArray.push({
-          id: follower.id,
-          link: follower.html_url,
-          imageUrl: follower.avatar_url,
-          title: follower.login
-        });
-      })
-      setFollowers(followersArray);
-    })
+      .then(response => response.json())
+      .then(function(followers) {
+        let followersArray = [];
+        
+        followers.map(follower => {
+          followersArray.push({
+            id: follower.id,
+            link: follower.html_url,
+            imageUrl: follower.avatar_url,
+            title: follower.login
+          });
+        })
 
-    // API GraphQL
+        setFollowers(followersArray);
+      })
+
+    // Set communities
     fetch('https://graphql.datocms.com', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'fbeeee0417370c1a491fe75bb8fee2',
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({ "query": `query {
-        allCommunities {
-          id
-          title
-          imageUrl
-          creatorSlug
-        }
-      }` })
-    })
-    .then((response) => response.json())
-    .then((response) => {
-      setCommunities(response.data.allCommunities)
-    })
+        method: 'POST',
+        headers: {
+          'Authorization': 'fbeeee0417370c1a491fe75bb8fee2',
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({ "query": `query {
+          allCommunities {
+            id
+            title
+            imageUrl
+            creatorSlug
+          }
+        }` })
+      })
+      .then((response) => response.json())
+      .then((response) => {
+        setCommunities(response.data.allCommunities)
+      })
   }, [])
 
   return (
