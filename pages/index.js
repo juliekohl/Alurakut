@@ -128,31 +128,25 @@ export default function Home(props) {
                 setCommunities(communitiesUpdated)
               })
             }}>
-              <div>
-                <input 
-                  placeholder="Qual vai ser o nome da sua comunidade?" 
-                  name="title" 
-                  aria-label="Qual vai ser o nome da sua comunidade?" 
-                  type="text"
-                />
-              </div>
+              <input
+                placeholder="Qual vai ser o nome da sua comunidade?" 
+                name="title" 
+                aria-label="Qual vai ser o nome da sua comunidade?" 
+                type="text"
+              />
 
-              <div>
-                <input 
-                  placeholder="Coloque uma URL para usarmos de capa" 
-                  name="image" 
-                  aria-label="Coloque uma URL para usarmos de capa" 
-                />
-              </div>
+              <input 
+                placeholder="Coloque uma URL para usarmos de capa" 
+                name="image" 
+                aria-label="Coloque uma URL para usarmos de capa" 
+              />
 
-              <div>
-                <input 
-                  placeholder="Autor da comunidade" 
-                  name="creator" 
-                  aria-label="Autor da comunidade" 
-                  type="text"
-                />
-              </div>
+              <input 
+                placeholder="Autor da comunidade" 
+                name="creator" 
+                aria-label="Autor da comunidade" 
+                type="text"
+              />
 
               <button>
                 Criar comunidade
