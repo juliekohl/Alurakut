@@ -8,7 +8,11 @@ export default function ProfileSidebar(props) {
       <Wrapper className="alurakutMenuProfileSidebar">
         <img className="alurakutMenuProfileSidebar__profile" src={`https://github.com/${props.githubUser}.png`} />
 
-        <a className="boxLink" href={`https://github.com/${props.githubUser}`}>
+        <a 
+          className="boxLink" 
+          href={`https://github.com/${props.githubUser}`}
+          target="_blank"
+          >
           @{props.githubUser}
         </a>
 
