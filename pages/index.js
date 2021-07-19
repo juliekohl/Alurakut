@@ -56,10 +56,10 @@ export default function Home(props) {
             imageUrl: follower.avatar_url,
             title: follower.login
           });
-        })
+        });
 
         setFollowers(followersArray);
-      })
+      });
 
     // Set communities
     fetch('https://graphql.datocms.com', {
@@ -81,7 +81,7 @@ export default function Home(props) {
       .then((response) => response.json())
       .then((response) => {
         setCommunities(response.data.allCommunities)
-      })
+      });
   }, []);
 
   const formik = useFormik({ 
@@ -102,7 +102,7 @@ export default function Home(props) {
         title: values.title,
         imageUrl: values.image,
         creatorSlug: values.creator,
-      }
+      };
 
       fetch('/api/communities', {
         method: 'POST',
@@ -120,7 +120,7 @@ export default function Home(props) {
         alert('Comunidade criada como sucesso!');
 
         setLoading(false);
-      })
+      });
     }, 
   });
 
@@ -227,7 +227,7 @@ export async function getServerSideProps(context) {
       Authorization: token
     }
   })
-  .then((response) => response.json())
+  .then((response) => response.json());
 
   if (!isAuthenticated) {
     return {
@@ -235,7 +235,7 @@ export async function getServerSideProps(context) {
         destination: '/login',
         permanent: false,
       }
-    }
+    };
   }
 
   const { githubUser } = jwt.decode(token);
@@ -244,5 +244,5 @@ export async function getServerSideProps(context) {
     props: {
       githubUser
     }
-  }
+  };
 }

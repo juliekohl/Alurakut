@@ -9,7 +9,7 @@ export default async function recebedorDeRequests( request, response) {
     const register = await client.items.create({
       itemType: "967819",
       ...request.body
-    })
+    });
   
     response.json({
       register: register,
@@ -20,5 +20,5 @@ export default async function recebedorDeRequests( request, response) {
 
   response.status(404).json({
     message: 'Ainda não temos nada no GET'
-  })
+  });
 }
